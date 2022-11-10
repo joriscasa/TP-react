@@ -1,0 +1,22 @@
+{
+  "employes": [
+    {
+      "id": 1,
+      "first_name": "Sebastian",
+      "last_name": "Esc",
+      "email": "sebastian@gmail.com"
+    },
+    {
+      "id": 2,
+      "first_name": "Steve",
+      "last_name": "Palmer",
+      "email": "steve@gmail.com"
+    },
+    {
+      "id": 3,
+      "first_name": "Anne",
+      "last_name": "Smith",
+      "email": "anne@gmail.com"
+    }
+  ]
+}

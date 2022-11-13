@@ -1,141 +1,160 @@
-export default function Crud({
+import "./App.css";
+import { useState } from "react";
+import Axios from "axios";
 
-    employes = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      Work_role: "",
-      Adress: [],
-    },
-  }) {
-    const [firstname, setFirstname] = useState(employes.firstname);
-    const [lastname, setLastname] = useState(employes.lastname);
-    const [email, setEmail] = useState(employes.email);
-    const [work_role, setwork_role] = useState(employes.work_role);
-    const [adress, setadress] = useState(employes.adress);
-  
-    const [valid, setValid] = useState(false);
-    const [date, setDate] = useState(new Date());
-  
-    useEffect(() => {
-      // componentDidUpdate
-      setValid(
-        firstname.length > 0 &&
-          lastname.length > 0 &&
-          email.length > 0 &&
-          password.length > 0 &&
-          adress
-      );
-      console.log("componentDidUpdate");
-      return () => {
-        // componentWillUpdate
-        console.log("componentWillUpdate");
-      };
-    }, [firstname, lastname, email, work_role, adress]);
-    useEffect(() => {
-      //componentDidMount
-      console.log("componentDidMount");
-      const i = setInterval(() => {
-        setDate(new Date());
-        console.log(new Date());
-      }, 1000);
-      return () => {
-        //componentWillUnmount
-        console.log("componentWillUnmount");
-        clearInterval(i);
-      };
-    }, []);
-  
-    function handleChange(e) {
-      const tagName = e.target.tagName;
-      const name = e.target.name;
-      let value;
-      if (tagName === "INPUT") {
-        const type = e.target.type;
-        if (type === "checkbox") {
-          value = e.target.checked;
-        } else {
-          value = e.target.value;
-        }
-      } else if (tagName === "SELECT") {
-        value = Array.from(e.target.options)
-          .filter((option) => option.selected)
-          .map((option) => option.value);
+function App() {
+  const [nom, setNom] = useState("");
+  const [age, setAge] = useState(0);
+  const [adresse, setAdresse] = useState("");
+  const [position, setPosition] = useState("");
+  const [salaire, setSalaire] = useState(0);
+
+  const [newWage, setNewWage] = useState(0);
+
+  const [employeeList, setEmployeeList] = useState([]);
+
+  const addEmployee = () => {
+    Axios.post("http://localhost:3000/create", {
+      nom: nom,
+      age: age,
+      adresse: adresse,
+      position: position,
+      salaire: salaire,
+    }).then(() => {
+      setEmployeeList([
+        ...employeeList,
+        {
+          nom: nom,
+          age: age,
+          adresse: adresse,
+          position: position,
+          salaire: salaire,
+        },
+      ]);
+    });
+  };
+
+  const getEmployees = () => {
+    Axios.get("http://localhost:3000/employees").then((response) => {
+      setEmployeeList(response.data);
+    });
+  };
+
+  const updateEmployeeWage = (id) => {
+    Axios.put("http://localhost:3000/update", { salaire: setNewWage, id: id }).then(
+      (response) => {
+        setEmployeeList(
+          employeeList.map((val) => {
+            return val.id == id
+              ? {
+                  id: val.id,
+                  nom: val.nom,
+                  adresse: val.adresse,
+                  age: val.age,
+                  position: val.position,
+                  salaire: val.Salaire,
+                }
+              : val;
+          })
+        );
       }
-      switch (name) {
-        case "firstname":
-          setFirstname(value);
-          break;
-        case "lastname":
-          setLastname(value);
-          break;
-        case "email":
-          setEmail(value);
-          break;
-        case "work_role":
-          setPassword(value);
-          break;
-        case "adress":
-          setSkills(value);
-          break;
-      }
-    }
-  
-    return (
-      <form autoComplete="off">
-        <div>{date.toISOString()}</div>
-        <input
-          value={lastname}
-          name="lastname"
-          type="text"
-          required
-          onChange={handleChange}
-        />
-        <input
-          value={firstname}
-          name="firstname"
-          type="text"
-          required
-          onChange={handleChange}
-        />
-        <input
-          name="email"
-          type="email"
-          required
-          value={email}
-          onChange={handleChange}
-          autoComplete="off"
-        />
-        <input
-          name="work_role"
-          type="text"
-          required
-          value={password}
-          onChange={handleChange}
-          autoComplete="off"
-        />
-        <input
-            name="adress"
-            type="text"
-            required
-            value={password}
-            onChange={handleChange}
-            autoComplete="off"
-        />
-        <select multiple name="skills" onChange={handleChange}>
-          <option value="php">PHP</option>
-          <option value="js">JS</option>
-          <option value="react">React</option>
-        </select>
-        <input
-          name="aggreement"
-          type="checkbox"
-          required
-          value={rgpd}
-          onChange={handleChange}
-        />
-        <input disabled={!valid} type="submit" value="Submit" />
-      </form>
     );
-  }
-  
+  };
+
+  const deleteEmployee = (id) => {
+    Axios.delete(`http://localhost:3000/delete/${id}`).then((response) => {
+      setEmployeeList(
+        employeeList.filter((val) => {
+          return val.id != id;
+        })
+      );
+    });
+  };
+
+  return (
+    <div className="App">
+      <div className="information">
+        <label>Nom:</label>
+        <input
+          type="text"
+          onChange={(event) => {
+            setNom(event.target.value);
+          }}
+        />
+        <label>Age:</label>
+        <input
+          type="number"
+          onChange={(event) => {
+            setAge(event.target.value);
+          }}
+        />
+        <label>Adresse:</label>
+        <input
+          type="number"
+          onChange={(event) => {
+            setAdresse(event.target.value);
+          }}
+        />
+        <label>Position:</label>
+        <input
+          type="text"
+          onChange={(event) => {
+            setPosition(event.target.value);
+          }}
+        />
+        <label>Salaire (mois):</label>
+        <input
+          type="number"
+          onChange={(event) => {
+            setSalaire(event.target.value);
+          }}
+        />
+        <button onClick={addEmployee}>Ajouter un Employé</button>
+      </div>
+      <div className="employees">
+        <button onClick={getEmployees}>Montrer les Employés</button>
+
+        {employeeList.map((val, key) => {
+          return (
+            <div className="employee">
+              <div>
+                <h1>Nom: {val.name}</h1>
+                <h2>Age: {val.age}</h2>
+                <h3>Adresse: {val.adresse}</h3>
+                <h4>Position: {val.position}</h4>
+                <h5>salaire: {val.salaire}</h5>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="2000..."
+                  onChange={(event) => {
+                    setNewWage(event.target.value);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    updateEmployeeWage(val.id);
+                  }}
+                >
+                  {" "}
+                  Update
+                </button>
+
+                <button
+                  onClick={() => {
+                    deleteEmployee(val.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default App;

@@ -1,28 +1,36 @@
 {
-  "employés": [
+  "employes": [
     {
-      "id": 1,
-      "nom": "Sebastian",
-      "age": "25",
-      "adresse": "Calle 1",
-      "position": "data scientist",
-      "salaire": "2000"
-    },
-    {
-      "id": 2,
-      "nom": "Juan",
-      "age": "30",
-      "adresse": "Calle 2",
-      "position": "cloud architect",
-      "salaire": "3000"
-    },
-    {
-      "id": 3,
       "nom": "Pedro",
-      "age": "23",
+      "age": "21",
       "adresse": "Calle 3",
       "position": "Développeur fullstack",
-      "salaire": "2500"
+      "salaire": "2500",
+      "id": 3
+    },
+    {
+      "nom": "Joris ",
+      "age": "19",
+      "adresse": "calle 4 ",
+      "position": "dev",
+      "salaire": "5000",
+      "id": 4
+    },
+    {
+      "nom": "Roberto",
+      "age": "92",
+      "adresse": "calle 92",
+      "position": "futuriste ",
+      "salaire": "1000",
+      "id": 5
+    },
+    {
+      "nom": "Alonzo ",
+      "age": "33",
+      "adresse": "rue de la rue ",
+      "position": "a la rue ",
+      "salaire": "1",
+      "id": 6
     }
   ]
 }

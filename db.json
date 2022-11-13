@@ -1,22 +1,28 @@
 {
-  "employes": [
+  "employés": [
     {
       "id": 1,
-      "first_name": "Sebastian",
-      "last_name": "Esc",
-      "email": "sebastian@gmail.com"
+      "nom": "Sebastian",
+      "age": "25",
+      "adresse": "Calle 1",
+      "position": "data scientist",
+      "salaire": "2000"
     },
     {
       "id": 2,
-      "first_name": "Steve",
-      "last_name": "Palmer",
-      "email": "steve@gmail.com"
+      "nom": "Juan",
+      "age": "30",
+      "adresse": "Calle 2",
+      "position": "cloud architect",
+      "salaire": "3000"
     },
     {
       "id": 3,
-      "first_name": "Anne",
-      "last_name": "Smith",
-      "email": "anne@gmail.com"
+      "nom": "Pedro",
+      "age": "23",
+      "adresse": "Calle 3",
+      "position": "Développeur fullstack",
+      "salaire": "2500"
     }
   ]
 }
